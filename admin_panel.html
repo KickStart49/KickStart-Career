@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-app.js"></script>
+  <script type="text/javascript" src="js/auth.js"></script>
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-database.js"></script>
+  <script src="http://tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+<title>KickStart</title>
+<meta name="description" content="">
+<meta name="author" content="">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/animate.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/owl.theme.css">
+<link rel="stylesheet" href="css/owl.carousel.css">
+
+<!-- Main css -->
+<link rel="stylesheet" href="css/temp.css">
+
+
+</head>
+
+<body data-spy="scroll" data-offset="50" data-target=".navbar-collapse">
+
+
+
+  <div class="navbar navbar-fixed-top custom-navbar" role="navigation" style="background-color: black!important;">
+    
+
+    <!-- navbar header -->
+    <div class="navbar-header">
+      <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon icon-bar"></span>
+        <span class="icon icon-bar"></span>
+        <span class="icon icon-bar"></span>
+      </button>
+      <a href="" class="navbar-brand">
+        <img src="images/loader.png" style="position: fixed;overflow: hidden!important;  top: 1%;left: 1%; width: 11%;"></img></a>
+    </div>
+
+    <div class="collapse navbar-collapse">
+
+      <ul class="nav navbar-nav navbar-right navbar-pills text-center">
+        <li><a href="#intro">Home</a></li>
+        <li><a href="#overview">Overview</a></li>
+        
+        <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"  data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Career Options <span class="caret"></span></a>
+        
+           <ul class="dropdown-menu bounceIn multi-level text-center" data-dropdown-in="bounceIn" data-dropdown-out="bounceOut" role="menu" aria-labelledby="dropdownMenu">
+              
+              <li class="dropdown-submenu">
+                <a href="">Engineering</a>
+                
+                <ul class="dropdown-menu">
+                  <li class="dropdown-submenu">
+                    <a href="">Computer / IT</a>
+                  </li>
+                  <li class="dropdown-submenu">
+                    <a href="">Mechanical</a>
+                  </li>
+               <li class="dropdown-submenu">
+                    <a href="">Electrical</a>
+                </li>
+                <li class="dropdown-submenu">
+                    <a href="">Civil</a>
+                </li>
+                <li class="dropdown-submenu">
+                    <a href="">Chemical</a>
+                </li>
+                <li class="dropdown-submenu">
+                    <a href="">EC</a>
+                </li>
+                <li class="dropdown-submenu">
+                    <a href="">Auronotical</a>
+                </li>
+          </ul>
+        </li>
+      </ul>
+  </li>
+  <li><a href="#doubt" class="smoothScroll">Any Question?</a></li>
+        <li><a href="#contact" class="smoothScroll">Contact Us</a></li>
+        <li><a href="#about" class="smoothScroll">About Us</a></li>
+        <li><a id="login" href="login.html" class="hidden smoothScroll">Login</a></li>
+
+         <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"  data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+                id="textelement" style="text-transform: uppercase; "></a>
+           <ul class="dropdown-menu bounceIn multi-level text-center" data-dropdown-in="bounceIn" data-dropdown-out="bounceOut" role="menu" aria-labelledby="dropdownMenu">
+              
+              <li class="dropdown-submenu">
+                <a href="" id="signout" class="hidden">Sign Out</a>
+        </li>
+        <li class="dropdown-submenu">
+                <a href="preference.html" id="" class="">Preferences</a>
+        </li>
+      </ul>
+  </li>
+        
+          
+          <script type="text/javascript">
+        var signout=document.getElementById("signout");
+signout.addEventListener("click",function(){
+  firebase.auth().signOut().then(function() {
+    alert("successfully SignOut");
+  // Sign-out successful.
+}).catch(function(error) {
+  alert("Error occur.Please Try Again.")
+  // An error happened.
+});
+},false);</script>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  firebase.auth().onAuthStateChanged(firebaseUser => {
+        if(!firebaseUser){
+           $('#login').removeClass('hidden');
+           $('#signup').removeClass('hidden');
+           $('#textelement').addClass('hidden');
+           $('.caret').addClass('hidden');
+            $('#signout').addClass('hidden');
+            $('#doubt .container').addClass('authstyle');
+           
+           }
+           else
+           {
+             $('.authstyle_element').addClass('hidden');
+            $('#login').addClass('hidden');
+           $('#signup').addClass('hidden');
+            $('#textelement').removeClass('hidden');
+            $('.caret').removeClass('hidden');
+            $('#signout').removeClass('hidden');
+            var user = firebase.auth().currentUser;
+            if(user!=null)
+            {var name=user.displayName;
+              document.getElementById("textelement").innerHTML = name +" <span class='caret'></span>";
+            console.log("Welcome " + name);
+
+            
+          }
+          }
+});
+</script>
+
+<br><br><br><br>
+
+<style type="text/css">
+.btn-group-vertical a{
+  border:none;
+}
+  .btn-group-vertical a {
+    background: #D9D9D9;
+  }
+  .btn-group-vertical a:hover,
+  .btn-group-vertical a:active,
+  .btn-group-vertical a:focus{
+    background: #c33538;
+    color: white;
+  }
+</style>
+<div class="container" style="margin-left: 15px;">
+    <div class="row">
+      <div class="container-fluid wrapper col-md-3" style="margin-left: 0; text-align: center;">
+        <div class="row flex-xl-nowrap">
+            <div id="sidebar" class="sw-sidebar " style="position: fixed; width: 15%; background: #ecebeb;height: 50vh; ">
+              <div class="btn-group-vertical btn-block ">
+                  <a href="#dash" class="btn btn-block">DashBoard</a>  
+                  <a href="#contentchange" type="button" class="btn btn-block">Modify Content</a>
+                  <a href="#faq" type="button" class="btn btn-block">Ques_Ans Panel</a>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-md-offset-3">
+
+
+    <div style="height:100vh;" id="contentchange"><br><br><br><br><br>
+      <form >
+      <p>Select your Field :</p>
+    <select  id="field" class="dropdown btn btn-block " style="border: black solid 1px;" >
+      <option value="Engineering">Engineering</option>
+      <option value="Management">Management</option>
+      <option value="Medical">Medical</option>
+    <option value="Law">Law</option>
+    <option value="Commerce">Commerce</option>
+    <option value="Arts">Arts</option>
+ </select><br>
+  <p>Select your Branch :</p>
+    <select id="subfield" class="dropdown btn btn-block " style="border: black solid 1px;">
+      <option value="EC">EC</option>
+      <option value="Mechanical">Mechanical</option>
+      <option value="CE">CE</option>
+    <option value="EC">Electrical</option>
+    <option value="EC">Chemical</option>
+    <option value="EC">Civil</option>
+ </select><br>
+ <p>Select your Topic :</p>
+    <select id="tab" class="dropdown btn btn-block " style="border: black solid 1px;">
+      <option value="Signal">Signal Processing</option>
+      <option value="Signal">Telecommunication</option>
+      <option value="Signal">Instumentation</option>
+    <option value="Signal">Control Engineering</option>
+    <option value="Signal">VLSI Design</option>
+     </select><br>
+<p>Select your Area to change :</p>
+    <select id="topic" class="dropdown btn btn-block " style="border: black solid 1px;">
+      <option value="overview">Overview</option>
+      <option value="overview">MOOC Resources</option>
+      <option value="overview">Book Resources</option>
+    <option value="overview">Tutorials</option>
+    <option value="overview">Video Tutorials</option>
+ </select><br>  
+    <div class="form-group">
+      <p>Modify content :</p>
+      <textarea rows="5" id="content" class="btn btn-block" style="border: black solid 1px;"></textarea>
+    </div>
+    <div class="form-group">
+    <a type="button" class="btn btn-primary submit" onclick="submitcontent()">Submit</a>
+  </div> 
+  </form>  
+    </div>
+
+
+  </div>
+
+</div>
+
+
+
+<script type="text/javascript" >
+  $(".submit").click(function(){
+    console.log("hi");
+  var field = document.getElementById("field").value;
+  console.log(field);
+  var subfield = document.getElementById("subfield").value;
+  console.log(subfield);
+  var tab = document.getElementById("tab").value;
+  console.log(tab);
+  var topic = document.getElementById("topic").value;
+  console.log(topic)
+  var content = document.getElementById('content').value;
+  console.log(content);
+  
+  var contentvalue = firebase.database().ref("contents/"+field+"/"+subfield + "/" + tab+"/");
+
+  contentvalue.update ({
+      overview:content
+  });
+
+});
+</script>
+
+
+<div class="footer-bottom">
+
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+        <div class="copyright">
+
+          © 2018, KickStart, All rights reserved
+
+        </div>
+
+      </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+        <div class="design">
+
+           <a href="#">Thanks for visiting our site. </a> |  <a target="_blank" href="http://www.webenlance.com">Career Guidance & courses provided by KickStart</a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+</footer>
+
+
+<!-- Back top -->
+<a href="#back-top" class="go-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+
+
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.parallax.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/smoothscroll.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/custom.js"></script>
+
+
+
+
+</body>
+  
+
+</html>
